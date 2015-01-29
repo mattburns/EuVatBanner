@@ -1,5 +1,5 @@
 # EuVatBanner
-Automatically adds a banner only visible to visitors from the EU
+Automatically adds a banner only visible to visitors from the EU (but not from GB)
 
 ## Demo
 See <a href="http://euvatbanner.appspot.com/">http://euvatbanner.appspot.com/</a> for an example
