@@ -1,5 +1,5 @@
 # EuVatBanner
-Automatically adds a banner only visible to visitors from the EU (but not from GB)
+Automatically adds a banner only visible to visitors from the EU
 
 ## Demo
 See <a href="http://euvatbanner.appspot.com/">http://euvatbanner.appspot.com/</a> for an example
@@ -32,3 +32,20 @@ Or if you prefer simplicity, you can simply include the javascript like this:
 <script type="text/javascript">http://euvatbanner.appspot.com/banner.js</script>
 ```
 
+### Specifying countries
+
+If you don't want to show the banner to some countries (such as GB and FR for example) then you
+can pass a comma-separated list of country codes to exclude directly into the js script request:
+```
+http://euvatbanner.appspot.com/banner.js?excludeCountries=GB,FR,DE
+```
+
+### Customisation
+
+You can style the banner as it has the class 'eu-vat-banner'.
+
+You can also build your own by accessing the data members of the injected div:
+
+```
+<div class="eu-vat-banner" data-country="GB" data-is-eu="true"></div>
+```
