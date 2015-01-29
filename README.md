@@ -37,7 +37,7 @@ Or if you prefer simplicity, you can simply include the javascript like this:
 If you don't want to show the banner to some countries (such as GB and FR for example) then you
 can pass a comma-separated list of country codes to exclude directly into the js script request:
 ```
-http://euvatbanner.appspot.com/banner.js?excludeCountries=GB,FR,DE
+http://euvatbanner.appspot.com/banner.js?excludeCountries=GB,FR
 ```
 
 ### Customisation
