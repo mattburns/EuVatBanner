@@ -14,8 +14,9 @@
         </h1>
         <p>This is just an example website to demonstrate the <a href='https://github.com/mattburns/EuVatBanner'>EuVatBanner</a></p>
 
-        <p>If you don't see a banner above then, perhaps you are not in an EU country.
-        You can show it if you pass your country code in like this:
+        <p>If you don't see a banner above then, perhaps you are not in an EU country?</p>
+
+        <p>If you want to hide the banner for some EU countries, just pass a comma-separated list:
         <a href="?excludeCountries=GB,FR,DE">?excludeCountries=GB,FR,DE</a>
         <p>By <a href="http://www.mattburns.co.uk">Matt Burns</a>
     </div>
