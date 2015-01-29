@@ -22,8 +22,8 @@
             var s = document.createElement('script');
             s.type = 'text/javascript';
             s.async = true;
-            //s.src = 'http://euvatbanner.appspot.com/banner.js';
-            s.src = 'http://localhost:8888/banner.js';
+            s.src = 'http://euvatbanner.appspot.com/banner.js';
+            //s.src = 'http://localhost:8888/banner.js';
             var x = document.getElementsByTagName('script')[0];
             x.parentNode.insertBefore(s, x);
         }
