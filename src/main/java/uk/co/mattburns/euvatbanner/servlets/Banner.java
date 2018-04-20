@@ -1,6 +1,5 @@
 package uk.co.mattburns.euvatbanner.servlets;
 
-import com.google.appengine.labs.repackaged.com.google.common.collect.Maps;
 import com.sun.jersey.api.view.Viewable;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -10,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
+import java.util.HashMap;
 import java.util.Map;
 
 @Path("/banner.js")
@@ -18,7 +18,7 @@ public class Banner {
     @GET
     @Produces("application/javascript")
     public Viewable view(@QueryParam("excludeCountries") String excludeCountries, @Context HttpServletRequest req) {
-        Map<String, Object> it = Maps.newHashMap();
+        Map<String, Object> it = new HashMap<>();
         String[] excludeCountriesArray = new String[0];
         if (excludeCountries != null) {
             excludeCountriesArray = excludeCountries.split(",");

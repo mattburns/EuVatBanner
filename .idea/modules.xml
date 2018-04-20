@@ -3,6 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EuVatBanner.iml" filepath="$PROJECT_DIR$/EuVatBanner.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EuVatBanner_main.iml" filepath="$PROJECT_DIR$/.idea/modules/EuVatBanner_main.iml" group="EuVatBanner" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/EuVatBanner_test.iml" filepath="$PROJECT_DIR$/.idea/modules/EuVatBanner_test.iml" group="EuVatBanner" />
     </modules>
   </component>
 </project>

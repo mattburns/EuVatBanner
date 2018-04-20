@@ -1,60 +1,40 @@
-apply plugin: 'war'
-apply plugin: 'appengine'
-
-def appengineVersion = "1.9.15"
-
 buildscript {
     repositories {
         mavenCentral()
     }
     dependencies {
-        classpath "com.google.appengine:gradle-appengine-plugin:1.9.15"
+        classpath 'com.google.cloud.tools:appengine-gradle-plugin:+'
     }
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_7
-targetCompatibility = JavaVersion.VERSION_1_7
 
 repositories {
     mavenCentral()
 }
 
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
+
 appengine {
-
-    httpPort = 8888
-    downloadSdk = true
-
-    appcfg {
-        update {
-            useJava7 = true
-        }
-
+    run {
         jvmFlags = ['-Ddatastore.backing_store=../../src/main/webapp/WEB-INF/appengine-generated/local_db.bin',
                     '-Dappengine.fullscan.seconds=5',
                     '-Xdebug',
-                    '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8889',
-                    '-XX:MaxPermSize=512m']
-    }
-
-    enhancer {
-        api = "jdo"
-        version = "v2"
-        enhanceOnBuild = true
+                    '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8889']
     }
 }
 
 dependencies {
-    appengineSdk "com.google.appengine:appengine-java-sdk:${appengineVersion}"
+    compile 'com.google.appengine:appengine-api-1.0-sdk:+'
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
 
-    compile "javax.servlet:servlet-api:2.5"
-    compile "javax.servlet:jsp-api:2.0"
+    compile 'jstl:jstl:1.2'
 
     testCompile 'com.github.kongchen:swagger-maven-plugin:2.3'
 
-    compile "com.google.appengine:appengine-api-1.0-sdk:${appengineVersion}"
     compile 'com.wordnik:swagger-core_2.10:1.3.0'
     compile 'com.wordnik:swagger-jersey-jaxrs_2.10:1.3.0'
-
 
     compile 'org.ow2.asm:asm:4.0'
     compile 'org.datanucleus:datanucleus-api-jpa:3.1.3'
@@ -65,7 +45,6 @@ dependencies {
     compile 'javax.jdo:jdo-api:3.0.1'
     compile 'javax.transaction:jta:1.1'
 
-    compile 'com.google.appengine:appengine-endpoints:1.9.15'
 
     compile 'com.google.code.gson:gson:2.3'
     compile 'org.json:json:20140107'
@@ -77,24 +56,41 @@ dependencies {
     compile 'com.sun.jersey:jersey-core:1.18.2'
     compile 'com.sun.jersey:jersey-server:1.18.2'
 
-    testCompile 'junit:junit:4.+'
     compile 'org.apache.commons:commons-lang3:3.3.2'
 
-    testCompile "com.google.appengine:appengine-api-1.0-sdk:${appengineVersion}"
-    compile "com.google.appengine:appengine-api-labs:${appengineVersion}"
-    testCompile "com.google.appengine:appengine-api-stubs:${appengineVersion}"
-    testCompile "com.google.appengine:appengine-testing:${appengineVersion}"
-    testRuntime "com.google.appengine:appengine-tools-sdk:${appengineVersion}"
+    testCompile 'junit:junit:4.+'
+    testCompile 'com.google.truth:truth:0.33'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+
+    testCompile 'com.google.appengine:appengine-testing:+'
+    testCompile 'com.google.appengine:appengine-api-stubs:+'
+    testCompile 'com.google.appengine:appengine-tools-sdk:+'
 }
 
-appengineUpdate.dependsOn test
+// Always run unit tests
+appengineDeploy.dependsOn test
+appengineStage.dependsOn test
 
-// Not sure why yet, but tests fail unless this is run (classes not enhanced)
-test.dependsOn appengineEnhance
+appengine {  // App Engine tasks configuration
+    deploy {   // deploy configuration
 
-test {
-    testLogging {
-        events "passed", "skipped", "failed"
     }
 }
 
+test {
+    useJUnit()
+    testLogging.showStandardStreams = true
+    beforeTest { descriptor ->
+        logger.lifecycle("test: " + descriptor + "  Running")
+    }
+
+    onOutput { descriptor, event ->
+        logger.lifecycle("test: " + descriptor + ": " + event.message )
+    }
+    afterTest { descriptor, result ->
+        logger.lifecycle("test: " + descriptor + ": " + result )
+    }
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
