@@ -7,7 +7,6 @@ buildscript {
     }
 }
 
-
 repositories {
     mavenCentral()
 }
@@ -16,12 +15,19 @@ apply plugin: 'java'
 apply plugin: 'war'
 apply plugin: 'com.google.cloud.tools.appengine'  // App Engine tasks
 
-appengine {
+appengine {  // App Engine tasks configuration
     run {
+        port = 8888
         jvmFlags = ['-Ddatastore.backing_store=../../src/main/webapp/WEB-INF/appengine-generated/local_db.bin',
                     '-Dappengine.fullscan.seconds=5',
                     '-Xdebug',
-                    '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=8889']
+                    '-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005']
+    }
+
+    deploy {   // deploy configuration
+        project = 'euvatbanner'
+        version = 3
+        promote = false
     }
 }
 
@@ -71,12 +77,6 @@ dependencies {
 appengineDeploy.dependsOn test
 appengineStage.dependsOn test
 
-appengine {  // App Engine tasks configuration
-    deploy {   // deploy configuration
-
-    }
-}
-
 test {
     useJUnit()
     testLogging.showStandardStreams = true
@@ -92,5 +92,5 @@ test {
     }
 }
 
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
